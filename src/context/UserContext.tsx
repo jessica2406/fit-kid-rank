@@ -20,6 +20,7 @@ export interface User {
   gender: 'male' | 'female';
   school?: string;
   class?: string;
+  password?: string; // Add the password property as optional
   tests: UserTest[];
 }
 
