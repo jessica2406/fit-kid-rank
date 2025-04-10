@@ -1,4 +1,3 @@
-
 import { useUser, UserTest } from "@/context/UserContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,7 +17,8 @@ import {
   Legend
 } from "recharts";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BarChart3, LineChart, User, Dumbbell } from "lucide-react";
+import { BarChart3, LineChart, User, Dumbbell, Trophy } from "lucide-react";
+import ClassLeaderboard from "@/components/ClassLeaderboard";
 
 // Helper function to format date for display
 const formatDate = (dateString: string) => {
@@ -175,6 +175,10 @@ const Dashboard = () => {
             <LineChart className="h-4 w-4 mr-2" />
             Timeline
           </TabsTrigger>
+          <TabsTrigger value="leaderboard">
+            <Trophy className="h-4 w-4 mr-2" />
+            Leaderboard
+          </TabsTrigger>
           <TabsTrigger value="profile">
             <User className="h-4 w-4 mr-2" />
             Profile
@@ -326,6 +330,10 @@ const Dashboard = () => {
               )}
             </CardContent>
           </Card>
+        </TabsContent>
+        
+        <TabsContent value="leaderboard">
+          {user && <ClassLeaderboard currentUser={user} />}
         </TabsContent>
         
         <TabsContent value="profile">
