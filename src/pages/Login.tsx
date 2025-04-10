@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "@/context/UserContext";
+import { useUser, User } from "@/context/UserContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,7 +19,7 @@ const Login = () => {
 
   // Mock data for demonstration purposes
   // In a real app, this would come from a database
-  const mockStudents = [
+  const mockStudents: User[] = [
     { id: "S1001", name: "Alex Johnson", age: 12, weight: 45, height: 152, gender: "male", school: "Springfield Elementary", class: "6A", tests: [] },
     { id: "S1002", name: "Emma Davis", age: 11, weight: 40, height: 148, gender: "female", school: "Springfield Elementary", class: "5B", tests: [] },
     { id: "S1003", name: "Jason Smith", age: 13, weight: 50, height: 162, gender: "male", school: "Riverside Middle School", class: "7C", tests: [] },
