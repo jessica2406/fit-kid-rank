@@ -7,12 +7,12 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Dumbbell } from "lucide-react";
+import { Dumbbell, KeyRound } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Login = () => {
   const [studentId, setStudentId] = useState("");
-  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { setUser } = useUser();
   const { toast } = useToast();
@@ -20,22 +20,24 @@ const Login = () => {
   // Mock data for demonstration purposes
   // In a real app, this would come from a database
   const mockStudents: User[] = [
-    { id: "S1001", name: "Alex Johnson", age: 12, weight: 45, height: 152, gender: "male", school: "Springfield Elementary", class: "6A", tests: [] },
-    { id: "S1002", name: "Emma Davis", age: 11, weight: 40, height: 148, gender: "female", school: "Springfield Elementary", class: "5B", tests: [] },
-    { id: "S1003", name: "Jason Smith", age: 13, weight: 50, height: 162, gender: "male", school: "Riverside Middle School", class: "7C", tests: [] },
+    { id: "S1001", name: "Alex Johnson", password: "pass1001", age: 12, weight: 45, height: 152, gender: "male", school: "Springfield Elementary", class: "6A", tests: [] },
+    { id: "S1002", name: "Emma Davis", password: "pass1002", age: 11, weight: 40, height: 148, gender: "female", school: "Springfield Elementary", class: "5B", tests: [] },
+    { id: "S1003", name: "Jason Smith", password: "pass1003", age: 13, weight: 50, height: 162, gender: "male", school: "Riverside Middle School", class: "7C", tests: [] },
   ];
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Find student by ID and name
+    // Find student by ID and password
     const student = mockStudents.find(s => 
       s.id.toLowerCase() === studentId.toLowerCase() && 
-      s.name.toLowerCase() === name.toLowerCase()
+      s.password === password
     );
     
     if (student) {
-      setUser(student);
+      // We don't want to include the password in the user state
+      const { password: _, ...userWithoutPassword } = student;
+      setUser(userWithoutPassword as User);
       toast({
         title: "Login successful",
         description: `Welcome back, ${student.name}!`,
@@ -44,7 +46,7 @@ const Login = () => {
     } else {
       toast({
         title: "Login failed",
-        description: "Student ID or name not found. Please try again.",
+        description: "Student ID or password is incorrect. Please try again.",
         variant: "destructive",
       });
     }
@@ -61,7 +63,7 @@ const Login = () => {
           </div>
           <CardTitle className="text-2xl text-center">Student Login</CardTitle>
           <CardDescription className="text-center">
-            Enter your student ID and name to access your fitness profile
+            Enter your student ID and password to access your fitness profile
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -78,12 +80,13 @@ const Login = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="password">Password</Label>
                 <Input
-                  id="name"
-                  placeholder="Enter your full name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  id="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </div>
