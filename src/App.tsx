@@ -12,6 +12,7 @@ import Tests from "./pages/Tests";
 import TestDetail from "./pages/TestDetail";
 import Layout from "./components/Layout";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Index />} />
+              <Route path="login" element={<Login />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="profile" element={<Profile />} />
               <Route path="tests" element={<Tests />} />

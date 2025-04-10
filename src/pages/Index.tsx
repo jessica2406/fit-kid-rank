@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useUser } from "@/context/UserContext";
-import { Dumbbell, ArrowRight, ClipboardList, Trophy } from "lucide-react";
+import { Dumbbell, ArrowRight, ClipboardList, Trophy, LogIn } from "lucide-react";
 
 const Index = () => {
   const { user } = useUser();
@@ -77,16 +77,18 @@ const Index = () => {
             </Link>
           </>
         ) : (
-          <>
-            <Link to="/profile">
+          <div className="flex flex-col sm:flex-row gap-4 items-center">
+            <Link to="/login">
               <Button className="px-8">
+                Login <LogIn className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+            <Link to="/profile">
+              <Button variant="outline" className="px-8">
                 Create Profile <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
-            <Link to="/tests" className="text-primary hover:underline">
-              Explore Tests
-            </Link>
-          </>
+          </div>
         )}
       </div>
     </div>

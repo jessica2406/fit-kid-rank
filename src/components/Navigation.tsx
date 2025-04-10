@@ -6,16 +6,19 @@ import {
   Dumbbell, 
   LayoutDashboard,
   Menu,
-  X
+  X,
+  LogIn
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useUser } from "@/context/UserContext";
 
 const Navigation = () => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
+  const { user } = useUser();
 
   const routes = [
     { name: "Home", path: "/", icon: Home },
@@ -65,6 +68,16 @@ const Navigation = () => {
                 {routes.map((route) => (
                   <NavLink key={route.path} route={route} />
                 ))}
+                {!user && (
+                  <Link
+                    to="/login"
+                    onClick={() => setOpen(false)}
+                    className="flex items-center gap-2 p-2 rounded-md transition-colors hover:bg-muted"
+                  >
+                    <LogIn className="h-5 w-5" />
+                    <span>Login</span>
+                  </Link>
+                )}
               </div>
             </SheetContent>
           </Sheet>
@@ -75,6 +88,15 @@ const Navigation = () => {
           {routes.map((route) => (
             <NavLink key={route.path} route={route} />
           ))}
+          {!user && (
+            <Link
+              to="/login"
+              className="flex items-center gap-2 p-2 rounded-md transition-colors hover:bg-muted"
+            >
+              <LogIn className="h-5 w-5" />
+              <span>Login</span>
+            </Link>
+          )}
         </div>
       </div>
     </nav>
